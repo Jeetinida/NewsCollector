@@ -18,6 +18,13 @@ EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 EMAIL_TO = os.getenv("EMAIL_TO")
 
+# print env variables for debugging
+print("NEWS_API_KEY:", NEWS_API_KEY)
+print("OPENAI_API_KEY:", OPENAI_API_KEY)
+print("EMAIL_USER:", EMAIL_USER)
+print("EMAIL_TO:", EMAIL_TO)
+print("EMAIL_PASS:", EMAIL_PASS)
+
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 CATEGORIES = ["sports", "business", "science", "politics"]
