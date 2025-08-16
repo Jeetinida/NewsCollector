@@ -19,11 +19,11 @@ EMAIL_PASS = os.getenv("EMAIL_PASS")
 EMAIL_TO = os.getenv("EMAIL_TO")
 
 # print env variables for debugging
-print("NEWS_API_KEY:", NEWS_API_KEY)
-print("OPENAI_API_KEY:", OPENAI_API_KEY)
-print("EMAIL_USER:", EMAIL_USER)
-print("EMAIL_TO:", EMAIL_TO)
-print("EMAIL_PASS:", EMAIL_PASS)
+print("DEBUG: NEWS_API_KEY set?", NEWS_API_KEY is not None)
+print("DEBUG: OPENAI_API_KEY set?", OPENAI_API_KEY is not None)
+print("DEBUG: EMAIL_USER set?", bool(EMAIL_USER))
+print("DEBUG: Email will send to:", EMAIL_TO)
+
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -32,6 +32,8 @@ CATEGORIES = ["sports", "business", "science", "politics"]
 def fetch_news(category):
     url = f"https://newsapi.org/v2/top-headlines?country=us&category={category}&pageSize=3&apiKey={NEWS_API_KEY}"
     resp = requests.get(url)
+    print("DEBUG: NewsAPI response status:", resp.status_code)
+    print("DEBUG: NewsAPI response sample:", resp.text[:200])  # first 200 chars
     data = resp.json()
     return [
         {
@@ -53,6 +55,7 @@ def summarize_news(news_items):
         )
         summary = resp.choices[0].message.content.strip()
         summaries.append(f"- {summary} ([Read more]({item['url']}))")
+        print("DEBUG: Sending to OpenAI:", prompt[:100])  # first 100 chars
     return "\n".join(summaries)
 
 def build_email():
