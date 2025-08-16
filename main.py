@@ -7,7 +7,10 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 # Load environment variables
-load_dotenv()
+# Only load .env locally
+if os.path.exists(".env"):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
