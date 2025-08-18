@@ -27,10 +27,10 @@ print("DEBUG: Email will send to:", EMAIL_TO)
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-CATEGORIES = ["sports", "business", "science", "politics"]
+CATEGORIES = ["sports", "business", "science", "politics", "technology", "health"]
 
 def fetch_news(category):
-    url = f"https://newsapi.org/v2/top-headlines?country=us&category={category}&pageSize=3&apiKey={NEWS_API_KEY}"
+    url = f"https://newsapi.org/v2/top-headlines?category={category}&pageSize=3&apiKey={NEWS_API_KEY}"
     resp = requests.get(url)
     print("DEBUG: NewsAPI response status:", resp.status_code)
     print("DEBUG: NewsAPI response sample:", resp.text[:200])  # first 200 chars
